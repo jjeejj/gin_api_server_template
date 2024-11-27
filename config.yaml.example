@@ -1,0 +1,30 @@
+app:
+    env: dev # 环境名称， dev, test, prod
+    port: :8080
+    name: gin_api_server_template
+    is_task_node: true # 是否是运行定时认为的节点
+log: # 日志配置
+    level: debug  # 日志级别
+    file_path: ./logs
+    file_name: gin.log
+    is_compress: true # 是否压缩
+    max_age: 7 # 最大保留天数
+    max_backups: 7 # 最大保留个数
+    max_size: 100 # 单个文件最大大小  单位为 M
+    console_enable: true # 是否打印到控制台
+    console_orm_enable: true # orm打印sql
+mysql:
+    host: 127.0.0.1
+    port: 3316
+    database: gin
+    user: root
+    password: 123456
+	charset: utf8mb4
+redis:
+    host: 127.0.0.1
+    port: 6479
+    db: 9
+    password: 123456
+    prefix: "gin:"
+
+
