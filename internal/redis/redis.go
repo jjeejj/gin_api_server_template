@@ -50,3 +50,21 @@ func (r *RedisClient) Get(ctx context.Context, key string) (string, error) {
 func (r *RedisClient) Del(ctx context.Context, key string) error {
 	return r.redisClient.Del(ctx, r.Prefix+key).Err()
 }
+
+// 设置过期时间
+func (r *RedisClient) Expire(ctx context.Context, key string, expiration time.Duration) error {
+	return r.redisClient.Expire(ctx, r.Prefix+key, expiration).Err()
+}
+
+func (r *RedisClient) ZAdd(ctx context.Context, key string, members ...goRedis.Z) error {
+	return r.redisClient.ZAdd(ctx, r.Prefix+key, members...).Err()
+}
+
+func (r *RedisClient) ZRangeByScore(ctx context.Context, key string, opt *goRedis.ZRangeBy) error {
+	return r.redisClient.ZRangeByScore(ctx, r.Prefix+key, opt).Err()
+}
+
+func (r *RedisClient) ZRevRangeByScore(ctx context.Context, key string, opt *goRedis.ZRangeBy) ([]string, error) {
+	var result = r.redisClient.ZRevRangeByScore(ctx, r.Prefix+key, opt)
+	return result.Val(), result.Err()
+}
