@@ -3,7 +3,7 @@ golang gin api server template
 
 ## 项目结构
 
-.
+```
 ├── LICENSE
 ├── Makefile
 ├── README.md
@@ -80,3 +80,5 @@ golang gin api server template
 ├── main.go
 ├── pkg
 ├── test
+```
+
