@@ -14,8 +14,20 @@ type AppRouter struct {
 
 func (a *AppRouter) AddRoute(e *gin.Engine) {
 	// 定义swagger文档基础信息
-	docs.SwaggerInfo.Title = "sogin_api_server_template"
-	docs.SwaggerInfo.Description = "服务 api 接口 \n { \"code\": 0, \"message\": \"success\", \"data\": {\"id\": 1, \"name\": \"test\"}}\"}"
+	docs.SwaggerInfo.Title = "gin_api_server_template"
+	docs.SwaggerInfo.Description = `
+	服务 api 接口 返回统一结构：
+		{
+			"code": 0,
+			"message": "success",
+			"data": {}
+		}
+		错误码：
+			ErrCode_Success              = 0 // 成功
+			ErrCode_InternalErr          = -1 // 服务内部错误
+			ErrCode_ParamErr             = 100000 // 参数错误
+			ErrCode_UnAuthErr            = 100001 // 未授权
+	`
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "dev: http://127.0.0.1:8080"
 	docs.SwaggerInfo.BasePath = "/api/v1"
