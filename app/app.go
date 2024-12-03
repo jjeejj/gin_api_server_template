@@ -31,8 +31,11 @@ func Start() {
 	// 定时器
 	GA.Cron = cron.New(cron.WithSeconds())
 
-	// 添加定时任务
-	task.InitTask(GA.Cron, GA.UserService)
-	// 启动定时任务
-	GA.Cron.Start()
+	// 只有执行任务的节点才执行
+	if global.Config.App.IsTaskNode {
+		// 添加定时任务
+		task.InitTask(GA.Cron, GA.UserService)
+		// 启动定时任务
+		GA.Cron.Start()
+	}
 }
