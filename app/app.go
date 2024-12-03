@@ -32,7 +32,7 @@ func Start() {
 	GA.Cron = cron.New(cron.WithSeconds())
 
 	// 添加定时任务
-	task.AddTask(GA.Cron)
+	task.InitTask(GA.Cron, GA.UserService)
 	// 启动定时任务
 	GA.Cron.Start()
 }
