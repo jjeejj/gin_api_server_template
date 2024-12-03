@@ -12,4 +12,6 @@ func genUserRouter(gr *gin.RouterGroup) {
 	gr.POST("/login", api.UserApi.Login)
 	// 其他接口需要权限验证
 	gr.Use(middleware.Authorization())
+	// 获取用户信息
+	gr.GET("/info", api.UserApi.GetUserInfo)
 }

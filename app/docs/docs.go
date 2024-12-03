@@ -37,6 +37,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/info": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "获取登录用户",
+                "parameters": [
+                    {
+                        "description": "获取登录用户",
+                        "name": "GetUserInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.GetUserInfoReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "请求ID",
+                        "name": "request_id",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/user.GetUserInfoResp"
+                        }
+                    }
+                }
+            }
+        },
         "/user/login": {
             "post": {
                 "consumes": [
@@ -79,6 +119,38 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "user.GetUserInfoReq": {
+            "type": "object"
+        },
+        "user.GetUserInfoResp": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "birthday": {
+                    "description": "生日年-月-日",
+                    "type": "string"
+                },
+                "introduction": {
+                    "description": "个人简介",
+                    "type": "string"
+                },
+                "nick_name": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "sex": {
+                    "description": "性别 male:男;female:女; unknown:未知 保密",
+                    "type": "string"
+                },
+                "user_sys_id": {
+                    "description": "uid 用户id",
+                    "type": "string"
+                }
+            }
+        },
         "user.UserLoginReq": {
             "type": "object",
             "required": [
@@ -94,12 +166,8 @@ const docTemplate = `{
                     "description": "区号,如果是手机号 传 区号，如果是邮箱 传 邮箱服务商 gmail、qq、outlook 等",
                     "type": "string"
                 },
-                "code": {
-                    "description": "验证码",
-                    "type": "string"
-                },
                 "password": {
-                    "description": "登录密码，前端 必须进行 sha256 hash 后传过来 【小写】\n1. 如果账号存在的时候登录，密码 或者验证码必须有一个\n2. 如果获取 验证码登录的时候，获取验证码返回的是新用户，需要设置密码，也是使用该字段",
+                    "description": "登录密码，前端 必须进行 sha256 hash 后传过来 【小写】",
                     "type": "string"
                 }
             }

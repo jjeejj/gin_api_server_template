@@ -5,6 +5,7 @@ import "gin_api_server_template/app/model"
 // UserInfo 基础信息
 type UserInfo struct {
 	model.BaseModel
+	SysId        string `json:"sys_id" gorm:"column:sys_id;uniqueIndex;comment:系统用户ID"`
 	NickName     string `json:"nick_name" gorm:"column:nick_name;type:varchar(256);comment:昵称"`
 	Avatar       string `json:"avatar" gorm:"column:avatar;type:varchar(256);comment:头像"`
 	Sex          string `json:"sex" gorm:"column:sex;type:varchar(128);comment:性别 字典表:sex male:男;female:女; unknown:未知"`
