@@ -2,7 +2,6 @@ package bootstrap
 
 import (
 	"fmt"
-	_const "gin_api_server_template/internal/const"
 	"gin_api_server_template/internal/global"
 	"gin_api_server_template/internal/logger"
 	"gin_api_server_template/internal/mysql"
@@ -43,9 +42,4 @@ func init() {
 		Db:       global.Config.Redis.Db,
 		Prefix:   global.Config.Redis.Prefix,
 	})
-
-	// 非生产环境，自动合并 midel
-	if global.Config.App.Env != _const.Env_Prod {
-		initModels(global.Db)
-	}
 }

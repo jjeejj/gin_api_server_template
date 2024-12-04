@@ -6,6 +6,8 @@ import (
 	"gin_api_server_template/app/task"
 	"gin_api_server_template/internal/global"
 
+	_const "gin_api_server_template/internal/const"
+
 	"github.com/robfig/cron/v3"
 )
 
@@ -20,6 +22,10 @@ var GA = &GinApi{}
 
 // Start 初始化对应的对象
 func Start() {
+	// 非生产环境，自动合并 model
+	if global.Config.App.Env != _const.Env_Prod {
+		initModels(global.Db)
+	}
 	// Repo 层
 	GA.UserInfoRepo = user.NewDbUserInfoRepo(global.Db)
 

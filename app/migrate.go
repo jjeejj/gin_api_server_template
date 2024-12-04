@@ -1,4 +1,4 @@
-package bootstrap
+package app
 
 import (
 	"gin_api_server_template/app/model/user"
