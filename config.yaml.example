@@ -5,7 +5,7 @@ app:
     is_task_node: true # 是否是运行定时认为的节点
 log: # 日志配置
     level: debug  # 日志级别
-    file_path: ./logs
+    file_path: ./tmp/logs
     file_name: gin.log
     is_compress: true # 是否压缩
     max_age: 7 # 最大保留天数
