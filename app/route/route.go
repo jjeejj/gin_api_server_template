@@ -29,7 +29,7 @@ func (a *AppRouter) AddRoute(e *gin.Engine) {
 			ErrCode_UnAuthErr            = 100001 // 未授权
 	`
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "dev: http://127.0.0.1:8080"
+	docs.SwaggerInfo.Host = "127.0.0.1:8080"
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
