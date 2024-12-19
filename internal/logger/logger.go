@@ -15,12 +15,16 @@ import (
 var (
 	options  []zap.Option
 	confInfo config.LogConfig
+	rootDir  string
 )
 
 // New 初始化日志
-func New() (Logger *zap.Logger, err error) {
-	confInfo = global.Config.Log
-	logDir := path.Join(global.RootDir, confInfo.FilePath)
+// configInfo 日志配置信息
+// dir: 日志根目录
+func new(configInfo config.LogConfig, dir string) (Logger *zap.Logger, err error) {
+	confInfo = configInfo
+	rootDir = dir
+	logDir := path.Join(rootDir, confInfo.FilePath)
 	err = os.MkdirAll(logDir, os.ModePerm)
 	if err != nil {
 		return
@@ -52,8 +56,7 @@ func New() (Logger *zap.Logger, err error) {
 }
 
 func getWriteSyncer() (writeSyncer zapcore.WriteSyncer, err error) {
-	confInfo := global.Config.Log
-	logDir := path.Join(global.RootDir, confInfo.FilePath)
+	logDir := path.Join(rootDir, confInfo.FilePath)
 	err = os.MkdirAll(logDir, os.ModePerm)
 	if err != nil {
 		return

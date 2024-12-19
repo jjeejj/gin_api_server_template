@@ -2,8 +2,10 @@ package middleware
 
 import (
 	"bytes"
-	"gin_api_server_template/internal/global"
+	"gin_api_server_template/internal/logger"
 	"io"
+
+	_const "gin_api_server_template/internal/const"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,13 +30,20 @@ func RequestLog() gin.HandlerFunc {
 			body:           bytes.NewBufferString(""),
 			ResponseWriter: c.Writer,
 		}
+		// 获取请求头的 request_id
+		requestId := c.GetHeader("request_id")
+		c.Set(_const.TraceCtxKey, &logger.Trace{
+			TraceId: requestId,
+			Host:    c.Request.Host,
+			Path:    c.Request.URL.Path,
+		})
 		c.Writer = crw
 		reqBody, _ := io.ReadAll(c.Request.Body)
 		c.Request.Body = io.NopCloser(bytes.NewBuffer(reqBody))
-		global.Logger.Infof("Request: %s %s %s", c.Request.Method, c.Request.RequestURI, reqBody)
+		logger.InfofCtx(c, "start request, method: %s, body: %sv", c.Request.Method, string(reqBody))
 		c.Next()
 		// 在请求处理之后记录日志
 		respBody := crw.body.String()
-		global.Logger.Infof("Response: %s %s %s", c.Request.Method, c.Request.RequestURI, respBody)
+		logger.InfofCtx(c, "end request, response_body: %s", respBody)
 	}
 }

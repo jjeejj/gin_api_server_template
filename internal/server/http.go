@@ -4,6 +4,7 @@ import (
 	"context"
 	_const "gin_api_server_template/internal/const"
 	"gin_api_server_template/internal/global"
+	"gin_api_server_template/internal/logger"
 	"net/http"
 	"os"
 	"os/signal"
@@ -57,12 +58,12 @@ func (h *Http) ListenSignal(srv *http.Server) {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 
 	<-quit
-	global.Logger.Info("Shutdown Server ...")
+	logger.Infof("Shutdown Server ...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
-		global.Logger.Fatal("server shutdown ")
+		logger.Fatalf("server shutdown ")
 	}
 }
 

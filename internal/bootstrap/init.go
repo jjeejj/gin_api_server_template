@@ -17,11 +17,10 @@ func init() {
 	global.Config = config.GetConfig()
 	global.RootDir, _ = os.Getwd()
 	// 初始化日志
-	zapLogger, err := logger.New()
+	err = logger.Init(global.Config.Log, global.RootDir)
 	if err != nil {
 		panic(err)
 	}
-	global.Logger = zapLogger.Sugar()
 	// mysql 配置必须传
 	if global.Config.Mysql.Host == "" || global.Config.Mysql.Port == "" {
 		panic("mysql config is empty")

@@ -8,7 +8,7 @@ import (
 
 	_struct "gin_api_server_template/app/struct"
 	_const "gin_api_server_template/internal/const"
-	"gin_api_server_template/internal/global"
+	"gin_api_server_template/internal/logger"
 
 	"github.com/gin-gonic/gin"
 )
@@ -57,7 +57,7 @@ func (u *userApi) GetUserInfo(c *gin.Context) {
 	}
 	userInfo, err := app.GA.UserInfoRepo.GetBySysId(c, userTokenS.UserSysId)
 	if err != nil {
-		global.Logger.Errorf("get user info err: %v", err)
+		logger.ErrorfCtx(c, "get user info err: %v", err)
 		response.InternalErr(c)
 		return
 	}

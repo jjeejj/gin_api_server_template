@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"gin_api_server_template/internal/global"
+	"gin_api_server_template/internal/logger"
 
 	mysqlConfig "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
@@ -42,7 +42,7 @@ func New(config *MysqlConfig) (db *gorm.DB) {
 	if err != nil {
 		panic(err)
 	}
-	global.Logger.Debugf("mysql connect success %s:%s", config.Host, config.Port)
+	logger.Debugf("mysql connect success %s:%s", config.Host, config.Port)
 	return
 
 }
