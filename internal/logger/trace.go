@@ -5,7 +5,6 @@ import (
 
 	_const "gin_api_server_template/internal/const"
 
-	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 
@@ -19,8 +18,12 @@ type Trace struct {
 	// SrcMethods string `json:"src_methods,omitempty"`
 }
 
-func GetTraceCtx(c *gin.Context) context.Context {
-	return c.MustGet(_const.TraceCtxKey).(context.Context)
+func GetTraceCtx(ctx context.Context) *Trace {
+	trace, ok := ctx.Value(_const.TraceCtxKey).(*Trace)
+	if !ok {
+		trace = &Trace{}
+	}
+	return trace
 }
 
 func (t *Trace) ToZapFields() []zap.Field {

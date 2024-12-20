@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"gin_api_server_template/internal/config"
-	_const "gin_api_server_template/internal/const"
 
 	"go.uber.org/zap"
 )
@@ -45,27 +44,27 @@ func Infof(format string, msg ...any) {
 	Log.logger.Info(fmt.Sprintf(format, msg...))
 }
 func DebugfCtx(ctx context.Context, format string, msg ...any) {
-	trace := ctx.Value(_const.TraceCtxKey).(*Trace)
+	trace := GetTraceCtx(ctx)
 	Log.logger.Debug(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
 }
 
 func WarnfCtx(ctx context.Context, format string, msg ...any) {
-	trace := ctx.Value(_const.TraceCtxKey).(*Trace)
+	trace := GetTraceCtx(ctx)
 	Log.logger.Warn(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
 }
 
 func ErrorfCtx(ctx context.Context, format string, msg ...any) {
-	trace := ctx.Value(_const.TraceCtxKey).(*Trace)
-	Log.logger.Warn(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
+	trace := GetTraceCtx(ctx)
+	Log.logger.Error(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
 }
 
 func FatalfCtx(ctx context.Context, format string, msg ...any) {
-	trace := ctx.Value(_const.TraceCtxKey).(*Trace)
+	trace := GetTraceCtx(ctx)
 	Log.logger.Fatal(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
 }
 
 func InfofCtx(ctx context.Context, format string, msg ...any) {
-	trace := ctx.Value(_const.TraceCtxKey).(*Trace)
+	trace := GetTraceCtx(ctx)
 	Log.logger.Info(fmt.Sprintf(format, msg...), trace.ToZapFields()...)
 }
 
