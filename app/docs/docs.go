@@ -15,6 +15,46 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/admin/user/list": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "admin"
+                ],
+                "summary": "用户列表",
+                "parameters": [
+                    {
+                        "description": "用户登录",
+                        "name": "ListUserReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/admin.ListUserReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "请求ID",
+                        "name": "request_id",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "登录成功",
+                        "schema": {
+                            "$ref": "#/definitions/admin.ListUserResp"
+                        }
+                    }
+                }
+            }
+        },
         "/app/test": {
             "get": {
                 "consumes": [
@@ -119,6 +159,12 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "admin.ListUserReq": {
+            "type": "object"
+        },
+        "admin.ListUserResp": {
+            "type": "object"
+        },
         "user.GetUserInfoReq": {
             "type": "object"
         },

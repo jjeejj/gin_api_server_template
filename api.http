@@ -4,3 +4,7 @@
 GET  {{baseUrl}}/app/test
 Content-Type: application/json
 request_id: {{$guid}}
+
+POST  {{baseUrl}}/admin/user/list
+Content-Type: application/json
+request_id: {{$guid}}

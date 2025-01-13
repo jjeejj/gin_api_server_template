@@ -3,6 +3,7 @@ package route
 import (
 	docs "gin_api_server_template/app/docs"
 	"gin_api_server_template/app/middleware"
+	"gin_api_server_template/app/route/admin"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -43,6 +44,10 @@ func (a *AppRouter) AddRoute(e *gin.Engine) {
 
 	// 用户相关的 api
 	genUserRouter(baseGroup.Group("/user"))
+
+	// admin 相关的
+	admin.GenAdminRouter(baseGroup.Group("/admin"))
+
 }
 
 func New() *AppRouter {

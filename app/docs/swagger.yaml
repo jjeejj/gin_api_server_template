@@ -1,4 +1,8 @@
 definitions:
+  admin.ListUserReq:
+    type: object
+  admin.ListUserResp:
+    type: object
   user.GetUserInfoReq:
     type: object
   user.GetUserInfoResp:
@@ -52,6 +56,32 @@ definitions:
 info:
   contact: {}
 paths:
+  /admin/user/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户登录
+        in: body
+        name: ListUserReq
+        required: true
+        schema:
+          $ref: '#/definitions/admin.ListUserReq'
+      - description: 请求ID
+        in: header
+        name: request_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功
+          schema:
+            $ref: '#/definitions/admin.ListUserResp'
+      summary: 用户列表
+      tags:
+      - admin
   /app/test:
     get:
       consumes:
